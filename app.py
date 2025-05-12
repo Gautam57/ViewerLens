@@ -95,7 +95,6 @@ def flatten_comment_structure(comment_list):
                     text_block += f"    ↳ Reply by {reply_author} on {reply_published} (Likes: {reply_likes}):\n    {reply_text}\n\n"
 
     return text_block
-
 # Function to vector embedding
 def vector_embedding(GEMINI_API_KEY, transcript_text):
     if "vectors" not in st.session_state:
@@ -163,7 +162,7 @@ with st.sidebar:
             st.session_state.api_keys_collected = True
     st.header("🔗 Enter Video and Model Details")
     st.session_state.URL = st.text_input("Enter the YouTube Video URL", value="")
-    st.session_state.MODEL_NAME = st.text_input("Model Name", value="")
+    st.session_state.MODEL_NAME = st.selectbox("Select the Model", options=["Llama3-8b-8192","gemma2-9b-it"])
     video_submit = st.button("Save Video Setup")
     if video_submit:
         required_keys = ["URL", "MODEL_NAME"]
