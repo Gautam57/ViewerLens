@@ -97,7 +97,7 @@ def flatten_comment_structure(comment_list):
     return text_block
 # Function to vector embedding
 def vector_embedding(GEMINI_API_KEY, transcript_text):
-    if "vectors" not in st.session_state:
+    if st.session_state.vectors is None:
         # Use Google Generative AI Embeddings for the model
         st.session_state.embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=GEMINI_API_KEY)
 
@@ -135,8 +135,10 @@ if "channel_title" not in st.session_state:
     st.session_state.channel_title = None
 if "completed_vector_embedding" not in st.session_state:
     st.session_state.completed_vector_embedding = False
-if "transcript_text" not in st.session_state:
-    st.session_state.transcript_text = ""
+# if "transcript_text" not in st.session_state:
+#     st.session_state.transcript_text = ""
+if "vectors" not in st.session_state:
+    st.session_state.vectors = None
 
 st.title("VIEWER LENS")
 st.write("See What Your Audience Thinks and Asks")
@@ -213,7 +215,7 @@ if st.session_state.required_data_collected and st.session_state.api_keys_collec
         
         # Show similar documents that were used for context (from the retrieval)
         st.subheader("🔍 Top Relevant Chunks")
-        similar_docs = retriever.get_relevant_documents(prompt1)
+        similar_docs = retriever.invoke(prompt1)
         with st.expander("Document Similarity Search"):
             for i, doc in enumerate(similar_docs):
                 st.write(doc.page_content)
