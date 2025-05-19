@@ -98,7 +98,7 @@ streamlit run app.py
 - [ ] Save conversation history
 
 ---
-## Media
+## 📷 Media
 
 | ![Image 1](media/image1.png) | ![Image 2](media/image2.png) |
 |------------------------------|------------------------------|
